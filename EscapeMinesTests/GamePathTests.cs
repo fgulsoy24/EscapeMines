@@ -11,9 +11,16 @@ namespace EscapeMinesTests
     class GamePathTests
     {
         [Test]
-        public void GetGamePathTest()
+        public void GetGamePathAssertDoesNotThrowTest()
         {
-            string gameSettings = GamePath.GetGamePath("test-settings");
+            try
+            {
+                var gameSettings = GamePath.GetGamePath("test-settings");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("expected action not to throw, but it did!", ex);
+            }
         }
     }
 }

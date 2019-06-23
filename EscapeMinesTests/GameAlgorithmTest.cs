@@ -16,8 +16,8 @@ namespace EscapeMinesTests
         [Test]
         public void CalculateGameResultsTest()
         {
-            string directory = AppDomain.CurrentDomain.BaseDirectory;
-            string gameSettings = string.Format(directory + @"game-settings.txt");
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            var gameSettings = string.Format(directory + @"game-settings.txt");
             GameSettingsService gameSettingsService = new GameSettingsService(new ReadDataService());
             GameContext gameContext = gameSettingsService.PopulateGameSettings(gameSettings);
             Assert.True(gameContext.ExitPoint != null && gameContext.GameSize != null && gameContext.MineCoordinates != null && gameContext.StartPosition != null);
@@ -30,20 +30,28 @@ namespace EscapeMinesTests
              * It will do nothing and pass another character
              */
 
-            string directory = AppDomain.CurrentDomain.BaseDirectory;
-            string gameSettings = string.Format(directory + @"game-settings.txt");
-            GameSettingsService gameSettingsService = new GameSettingsService(new ReadDataService());
-            GameContext gameContext = gameSettingsService.PopulateGameSettings(gameSettings);
-            List<string> data = new List<string>();
-            string[] moveList = { "K", "L",
-                "S", "L","M","L","M","M","M","M" };
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            var gameSettings = string.Format(directory + @"game-settings.txt");
+            var gameSettingsService = new GameSettingsService(new ReadDataService());
+            var gameContext = gameSettingsService.PopulateGameSettings(gameSettings);
+            var data = new List<string>();
+            var moveList = new List<string> {"k", "M", "L"};
             data.AddRange(moveList);
+            gameContext.CommandList.Add(moveList);
 
-            List<List<string>> gameData = new List<List<string>>();
-            gameData.Add(data);
-            GameAlgorithm algorithm = new GameAlgorithm();
-            algorithm.CalculateGameResults(gameContext, gameData);
-
+            var algorithm = new GameAlgorithm(gameContext);
+            Assert.False(algorithm.CalculateGameResults(gameContext));
+        }
+        [Test]
+        public void IfGameContextNullTest()
+        {
+            /* This test checking, what make program, when will send the wrong command, 
+             * When send wrong data, It should show "Unknown movement" message.
+             * It will do nothing and pass another character
+             */
+         
+            var algorithm = new GameAlgorithm(null);
+            Assert.False(algorithm.CalculateGameResults(null));
         }
     }
 }

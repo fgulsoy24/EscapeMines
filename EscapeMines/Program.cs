@@ -20,30 +20,27 @@ namespace EscapeMines
     /// </summary>
     internal class Program
     {
+    
         private static void Main(string[] args)
         {
             
             var gameSettings =  GamePath.GetGamePath(args[0]);
-
+         
             ExecuteGame(gameSettings);
         
         }
 
 
         /// <summary>
-        /// Extract game settings
+        /// Get game settings from file
         /// Populate game settings to objects
         /// Calculate 
         /// </summary>
         /// <param name="gameSettings">Game settings file path</param>
         private static void ExecuteGame(string gameSettings)
         {
-            var gameSettingsService = new GameSettingsService(new ReadDataService());
-            var gameContext = gameSettingsService.PopulateGameSettings(gameSettings);
-            List<List<string>> gameData = gameSettingsService.GetGameData(gameSettings);
-            var algorithm = new GameAlgorithm();
-            algorithm.CalculateGameResults(gameContext, gameData);
-
+            var gameContext = new GameSettingsService(new ReadDataService()).PopulateGameSettings(gameSettings);  
+            new GameAlgorithm(gameContext);
         }
     }
 }

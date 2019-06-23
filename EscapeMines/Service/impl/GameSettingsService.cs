@@ -7,30 +7,42 @@ using EscapeMines.Model;
 using EscapeMines.Service;
 namespace EscapeMines.Service.impl
 {
-    public class GameSettingsService
+    public class GameSettingsService : IGameSettingsService
     {
         private readonly IReadDataService _readDataService;
 
+        /// <summary>
+        /// Game settings class constructor
+        /// </summary>
+        /// <param name="readDataService">Construct readDataService for get data from file</param>
         public GameSettingsService(IReadDataService readDataService)
         {
             _readDataService = readDataService;
         }
-
+        /// <summary>
+        /// Get file and fill the objects.
+        /// </summary>
+        /// <param name="filePath">It is the game settings file path</param>
         public GameContext PopulateGameSettings(string filePath)
         {
+            if (filePath.Equals(string.Empty))
+            {
+                return null;
+            }
             var lines = _readDataService.GetLines(filePath);
 
             var game = new GameContext
             {
                 GameSize = GetGameSize(_readDataService.GetNumbers(lines[0])),
                 MineCoordinates = GetMineCoordinates(lines[1]),
-                ExitPoint = GetExitPoint(lines[2]),
-                StartPosition = GetStartPosition(lines[3])
+                ExitPoint = GetExitPoint(_readDataService.GetNumbers(lines[2])),
+                StartPosition = GetStartPosition(lines[3]),
+                CommandList = GetGameCommandList(filePath)
             };
 
             return game;
         }
-        private static GameSize GetGameSize(IReadOnlyList<int> list)
+        private GameSize GetGameSize(IReadOnlyList<int> list)
         {
             var gameSize = new GameSize
             {
@@ -39,39 +51,38 @@ namespace EscapeMines.Service.impl
             };
             return gameSize;
         }
-        private ExitPoint GetExitPoint(string line)
+        private GameCoordinate GetExitPoint(IReadOnlyList<int> list)
         {
-            var list = _readDataService.GetNumbers(line);
-            var exitPoint = new ExitPoint
+            var exitPoint = new GameCoordinate
             {
                 CoordX = list[0],
                 CoordY = list[1]
             };
             return exitPoint;
         }
-        private StartPosition GetStartPosition(string line)
+        private TurtlePosition GetStartPosition(string line)
         {
             var coordinates = _readDataService.GetCharactersFromLine(line);
 
-            var startPosition = new StartPosition
+            var startPosition = new TurtlePosition
             {
                 CoordX = Convert.ToInt16(coordinates[0]),
                 CoordY = Convert.ToInt16(coordinates[1]),
-                Direction = coordinates[2].ToString()
+                Direction = coordinates[2]
             };
             return startPosition;
 
         }
-        private List<MineCoordinates> GetMineCoordinates(string line)
+        private List<GameCoordinate> GetMineCoordinates(string line)
         {
 
-            var list = _readDataService.GetNumberList(line);
+            var list = _readDataService.GetPairNumbersList(line);
 
-            var mineCoordinates = new List<MineCoordinates>();
+            var mineCoordinates = new List<GameCoordinate>();
 
             foreach (var item in list)
             {
-                var mine = new MineCoordinates
+                var mine = new GameCoordinate
                 {
                     CoordX = item.Item1,
                     CoordY = item.Item2
@@ -81,18 +92,17 @@ namespace EscapeMines.Service.impl
 
             return mineCoordinates;
         }
-        public List<List<string>> GetGameData(string gameSettings)
+        private List<List<string>> GetGameCommandList(string gameSettings)
         {
             var lines = _readDataService.GetLines(gameSettings);
 
             var commandList = new List<List<string>>();
-            int i = 0;
+            var i = 0;
             foreach (var line in lines)
             {
-                var commands = new List<string>();
                 if (i > 3)
                 {
-                    commands = _readDataService.GetCharactersFromLine(line);
+                    var commands = _readDataService.GetCharactersFromLine(line);
                     commandList.Add(commands);
                 }
 

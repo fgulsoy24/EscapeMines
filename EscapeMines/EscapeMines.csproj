@@ -51,17 +51,16 @@
   <ItemGroup>
     <Compile Include="Enum\GameStatus.cs" />
     <Compile Include="Enum\Movements.cs" />
-    <Compile Include="GameAlgorithm.cs" />
+    <Compile Include="Service\IGameAlgorithm.cs" />
+    <Compile Include="Service\impl\GameAlgorithm.cs" />
     <Compile Include="Model\Directions.cs" />
-    <Compile Include="Model\ExitPoint.cs" />
     <Compile Include="Model\GameCoordinate.cs" />
-    <Compile Include="GameContext.cs" />
+    <Compile Include="Model\GameContext.cs" />
     <Compile Include="Model\GameSize.cs" />
-    <Compile Include="Model\MineCoordinates.cs" />
-    <Compile Include="Model\StartPosition.cs" />
     <Compile Include="Model\TurtlePosition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IGameSettingsService.cs" />
     <Compile Include="Service\impl\GameSettingsService.cs" />
     <Compile Include="Service\IReadDataService.cs" />
     <Compile Include="Service\impl\ReadDataService.cs" />

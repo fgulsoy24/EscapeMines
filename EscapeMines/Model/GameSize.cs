@@ -8,7 +8,19 @@ namespace EscapeMines.Model
 {
     public class GameSize
     {
-        public int LineSizeX { get; set; }
-        public int LineSizeY { get; set; }
+        private int _lineSizeX;
+        private int _lineSizeY;
+
+        public int LineSizeX
+        {
+            get => _lineSizeX;
+            set => _lineSizeX = value;
+        }
+
+        public int LineSizeY
+        {
+            get => _lineSizeY;
+            set => _lineSizeY = value;
+        }
     }
 }

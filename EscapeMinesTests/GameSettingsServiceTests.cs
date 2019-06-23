@@ -15,11 +15,20 @@ namespace EscapeMinesTests
         [Test]
         public void PopulateGameSettingsTest()
         {
-            string directory = AppDomain.CurrentDomain.BaseDirectory;
-            string gameSettings = string.Format(directory + @"game-settings.txt");
-            GameSettingsService gameSettingsService = new GameSettingsService(new ReadDataService());
-            GameContext gameContext = gameSettingsService.PopulateGameSettings(gameSettings);
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            var gameSettings = string.Format(directory + @"game-settings.txt");
+            var gameSettingsService = new GameSettingsService(new ReadDataService());
+            var gameContext = gameSettingsService.PopulateGameSettings(gameSettings);
             Assert.True(gameContext.ExitPoint != null && gameContext.GameSize != null && gameContext.MineCoordinates != null && gameContext.StartPosition != null);
         }
+        [Test]
+        public void PopulateGameSettingsNullValueTest()
+        {
+            var gameSettings = string.Empty;
+            var gameSettingsService = new GameSettingsService(new ReadDataService());
+            var gameContext = gameSettingsService.PopulateGameSettings(gameSettings);
+            Assert.True(gameContext == null);
+        }
+
     }
 }

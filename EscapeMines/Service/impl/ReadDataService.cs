@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -9,9 +10,12 @@ namespace EscapeMines.Service.impl
 {
     public class ReadDataService : IReadDataService
     {
-        public List<Tuple<int, int>> GetNumberList(string line)
+        public List<Tuple<int, int>> GetPairNumbersList(string line)
         {
-
+            if (line == null)
+            {
+                return null;
+            }
             var tuples = new List<Tuple<int, int>>();
             var matches = Regex.Matches(line, @"\d{1,2}[,.]\d{1,2}");
             foreach (Match match in matches)
@@ -29,6 +33,8 @@ namespace EscapeMines.Service.impl
         {
             return File.ReadAllLines(filePath, Encoding.UTF8).ToList();
         }
+
+        /// <inheritdoc />
         public List<int> GetNumbers(string line)
         {
             var list = new List<int>();

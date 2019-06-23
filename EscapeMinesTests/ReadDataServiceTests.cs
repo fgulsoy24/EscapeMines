@@ -19,15 +19,16 @@ namespace EscapeMinesTests
             string[] characterList = { "M", "R",
                 "M", "M","M"};
             list.AddRange(characterList);
-            List<string> functionCharacterList =  read.GetCharactersFromLine("M R M M M");
+            var functionCharacterList =  read.GetCharactersFromLine("M R M M M");
             Assert.True(list.All(functionCharacterList.Contains));
         }
         [Test]
         public void GetLinesTest()
         {
-            string directory = AppDomain.CurrentDomain.BaseDirectory;
-            string gameSettings = string.Format(directory + @"game-settings.txt");
-            read.GetLines(gameSettings);
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            var gameSettings = string.Format(directory + @"game-settings.txt");
+            var lines = read.GetLines(gameSettings);
+            Assert.True(lines != null);
         }
         [Test]
         public void GetNumbersTest()
@@ -36,21 +37,26 @@ namespace EscapeMinesTests
             int[] numberList = { 3, 5,
                 6, 8};
             list.AddRange(numberList);
-            List<int> functionNumberList = read.GetNumbers("3 5 6 8");
+            var functionNumberList = read.GetNumbers("3 5 6 8");
             Assert.True(list.All(functionNumberList.Contains));
 
         }
         [Test]
-        public void GetNumberListTest()
+        public void GetPairNumbersListTest()
         {
-            List<Tuple<int, int>> functionNumberList =  read.GetNumberList("1,1 1,3 3,3");
+            var functionNumberList =  read.GetPairNumbersList("1,1 1,3 3,3");
 
-            List<Tuple<int, int>> numberList = new List<Tuple<int, int>>();
-            numberList.Add(new Tuple<int, int>(1, 1));
-            numberList.Add(new Tuple<int, int>(1, 3));
-            numberList.Add(new Tuple<int, int>(3, 3));
+            var numberList = new List<Tuple<int, int>>
+            {
+                new Tuple<int, int>(1, 1), new Tuple<int, int>(1, 3), new Tuple<int, int>(3, 3)
+            };
             Assert.True(numberList.All(functionNumberList.Contains));
-
+        }
+        [Test]
+        public void GetPairNumbersListIsNullTest()
+        {
+            var functionNumberList = read.GetPairNumbersList(null);     
+            Assert.True(functionNumberList == null);
         }
     }
 }

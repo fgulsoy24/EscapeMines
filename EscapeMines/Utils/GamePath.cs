@@ -10,12 +10,12 @@ namespace EscapeMines.Utils
     public static class GamePath
     {
         private static readonly string GameSettingsFilePath = ConfigurationManager.AppSettings["GameSettingsFilePath"];
-        private static string GameSettingsParameter = "";
+        private static string _gameSettingsParameter = "";
         public static string GetGamePath(string args)
         {
-            string directory = AppDomain.CurrentDomain.BaseDirectory;
-            GameSettingsParameter = string.Format(@"{0}{1}.txt",directory,args);
-            string gameSettings = args.Length == 0 ? GameSettingsFilePath : GameSettingsParameter;
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            _gameSettingsParameter = $@"{directory}{args}.txt";
+            var gameSettings = args.Length == 0 ? GameSettingsFilePath : _gameSettingsParameter;
             return gameSettings;
         }
     }

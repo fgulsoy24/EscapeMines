@@ -8,7 +8,7 @@ namespace EscapeMines.Service
 {
     public interface IReadDataService
     {
-        List<Tuple<int, int>> GetNumberList(string line);
+        List<Tuple<int, int>> GetPairNumbersList(string line);
         List<string> GetLines(string filePath);
         List<int> GetNumbers(string line);
         List<string> GetCharactersFromLine(string line);
