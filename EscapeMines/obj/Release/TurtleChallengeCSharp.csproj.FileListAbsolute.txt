@@ -1,0 +1,9 @@
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\bin\Release\TurtleChallengeCSharp.exe.config
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\bin\Release\TurtleChallengeCSharp.exe
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\bin\Release\TurtleChallengeCSharp.pdb
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\bin\Release\NLog.dll
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\bin\Release\NLog.xml
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\obj\Release\TurtleChallengeCSharp.csproj.CoreCompileInputs.cache
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\obj\Release\TurtleChallengeCSharp.csproj.CopyComplete
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\obj\Release\TurtleChallengeCSharp.exe
+C:\Users\cenk1\source\repos\TurtleChallengeCSharp\TurtleChallengeCSharp\obj\Release\TurtleChallengeCSharp.pdb
